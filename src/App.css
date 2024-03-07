@@ -1,5 +1,9 @@
-.App {
-  text-align: center;
+.container {
+
+  min-width: 100vw !important;
+  padding: 0 !important;
+  background-color: #faedcd;
+  /* text+-align: center; */
 }
 
 .App-logo {

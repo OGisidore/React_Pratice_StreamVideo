@@ -9,7 +9,7 @@
   margin-top: 2rem;
   width: 100vw;
   border: .1rem solid #ccc;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 6rem);
 }
 .contain{
   max-height: 80vh;

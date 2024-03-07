@@ -9,6 +9,7 @@ import React, { FC, useEffect, Fragment, useState } from 'react';
 import './VideoFormModal.css';
 import { Modal } from 'react-bootstrap';
 import { video } from '../../models/video';
+import { convertFile_toLink } from '../../helpers/fileshelper';
 
 
 interface VideoFormModalProps {
@@ -20,7 +21,8 @@ interface VideoFormModalProps {
 const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
 
 
-
+const [posterPreview, setProsterPreview] = useState<string>("")
+const [videoPreview, setVideoPreview] = useState<string>("")
   const [formData, setFormData] = useState<video>({
     title: "",
     description: "",
@@ -32,13 +34,29 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
 
   })
   const [formsErrors, setFormErrors] = useState<Record<string,string>>({})
-  const handleInputChange = (event: any) => {
+  const handleInputChange = async (event: any) => {
     const { name, value, type, files, checked } = event.target
     const newValue: any = formData
+    
     if (type === "checkbox") {
       newValue[name] = checked
     } else if (type === "file") {
-      newValue[name] = files[0]
+      const file = files[0]
+      const link = await convertFile_toLink(file)
+      if(name === "poster"){
+        if(!file.type.startsWith("image/")){
+          return;
+        }
+        setProsterPreview(link)
+      }
+      if(name ==="links"){
+        if(!file.type.startsWith("video/")){
+          return;
+        }
+        setVideoPreview(link)
+      }
+      newValue[name] = file
+
     } else {
       newValue[name] = value
     }
@@ -46,6 +64,9 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
 
 
     setFormData(newValue)
+    const errors = formsErrors
+    delete errors[name]
+    setFormErrors({...errors})
 
   }
   const validateForm = (): boolean => {
@@ -65,6 +86,7 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
     if (!formData.category.trim()) {
       errors.category = "Please select a category"
     }
+    setFormErrors(errors)
     return Object.keys(errors).length === 0 
   }
   const handleSubmit = (event: any) => {
@@ -72,6 +94,10 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
     if (!validateForm()) {
       return
     }
+    const video : video = formData
+    video.created_at = new Date()
+    console.log(video);
+    
   }
 
 
@@ -125,22 +151,31 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
                 <div className="input-group  py-3">
                   <label htmlFor="Poster" className="form-label m-1">Poster</label>
                   <input
+                  accept='image/*'
                     type="file"
                     name='poster'
                     className={`form-control ${formsErrors.poster ? "is-invalid" : ""}`}
                     onChange={handleInputChange}
                   />
+                  {posterPreview && <div className="preview-image">
+                    <img className='img-fluid' width={100% } src={posterPreview} alt=''/>
+                  </div> }
+                  
                   {formsErrors.poster && <div className='invalid-feedback'>{formsErrors.poster}</div>}
 
                 </div>
                 <div className="input-group  py-3">
                   <label htmlFor="Video" className="form-label m-1">Video</label>
                   <input
+                  accept='video/*'
                     type="file"
                     name='links'
                     className={`form-control ${formsErrors.links ? "is-invalid" : ""}`}
                     onChange={handleInputChange}
                   />
+                  {videoPreview && <div className="preview-video">
+                    <video src={videoPreview} width={"100%"}></video>
+                  </div> }
                   {formsErrors.links && <div className='invalid-feedback'>{formsErrors.links}</div>}
                 </div>
                 <div className="input-group  py-3" >

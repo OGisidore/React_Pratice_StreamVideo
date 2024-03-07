@@ -8,6 +8,8 @@
 .Header {
   padding: 1rem 1.5rem !important;
   background-color: #d4a373 !important;
+  position: sticky !important;
+  top: 0 !important;
 }
 .Header .title{
   color: #fefae0 !important;

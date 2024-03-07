@@ -31,11 +31,7 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
 
 
   })
-  const [formsErrors, setFormErrors] = useState({
-    title: "",
-    description: "",
-    category: ""
-  })
+  const [formsErrors, setFormErrors] = useState<Record<string,string>>({})
   const handleInputChange = (event: any) => {
     const { name, value, type, files, checked } = event.target
     const newValue: any = formData
@@ -69,6 +65,7 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
     if (!formData.category.trim()) {
       errors.category = "Please select a category"
     }
+    return Object.keys(errors).length === 0 
   }
   const handleSubmit = (event: any) => {
     event.preventDefault()
@@ -112,17 +109,14 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
                   {formsErrors.title && <div className='invalid-feedback'>{formsErrors.title}</div>}
 
                 </div>
-                <div className="input-group  py-3">
-                  <label htmlFor="Author" className="form-label m-1">Author</label>
-                  <input type="text" name='Author' className="form-control" />
-                </div>
+                
                 <div className="input-group  py-3">
                   <label htmlFor="Description" className="form-label m-1">Description</label>
                   <textarea
                     defaultValue={formData.description}
                     name="description"
                     id="description"
-                    className='form-control'
+                    className={`form-control ${formsErrors.description ? "is-invalid" : ""}`}
                     onChange={handleInputChange} />
                   {formsErrors.description && <div className='invalid-feedback'>{formsErrors.title}</div>}
 
@@ -133,20 +127,21 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
                   <input
                     type="file"
                     name='poster'
-                    className="form-control"
+                    className={`form-control ${formsErrors.poster ? "is-invalid" : ""}`}
                     onChange={handleInputChange}
                   />
-                  {formsErrors.title && <div className='invalid-feedback'>{formsErrors.title}</div>}
+                  {formsErrors.poster && <div className='invalid-feedback'>{formsErrors.poster}</div>}
 
                 </div>
                 <div className="input-group  py-3">
                   <label htmlFor="Video" className="form-label m-1">Video</label>
                   <input
                     type="file"
-                    name='linkd'
-                    className="form-control"
+                    name='links'
+                    className={`form-control ${formsErrors.links ? "is-invalid" : ""}`}
                     onChange={handleInputChange}
                   />
+                  {formsErrors.links && <div className='invalid-feedback'>{formsErrors.links}</div>}
                 </div>
                 <div className="input-group  py-3" >
                   <label htmlFor="Categories" className="form-label m-1">Categories</label>
@@ -154,9 +149,10 @@ const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal }) => {
                     defaultValue={formData.category}
                     name="category"
                     id="category"
-                    className="form-control"
+                    className={`form-control ${formsErrors.category ? "is-invalid" : ""}`}
                     onChange={handleInputChange}
                   >
+                    {formsErrors.category && <div className='invalid-feedback'>{formsErrors.category}</div>}
                     <option value="">select video categories</option>
                     <option value="Politique">Politique</option>
                     <option value="Comedie">Comedie</option>

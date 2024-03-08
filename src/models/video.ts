@@ -1,10 +1,11 @@
-import { category } from "./category";
+
 
 export interface video {
+  _id?:number,
   title: string;
   description: string;
-  poster:File|null| string;
-  links:File|null| string ;
+  poster:File|Blob|null|string;
+  links:File|null| Blob|string ;
   author?: string;
   isAvailable: boolean;
   created_at?: Date;

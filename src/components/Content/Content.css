@@ -15,3 +15,6 @@
   max-height: 80vh;
   border: .2rem solid black !important;
 }
+.contain img{
+  max-height: 17rem;
+}

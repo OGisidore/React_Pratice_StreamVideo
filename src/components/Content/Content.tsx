@@ -8,6 +8,9 @@ import React, { FC, useEffect, Fragment, useState } from 'react';
 // import Loading from '../Loading/Loading';
 import './Content.css';
 import VideoFormModal from '../VideoFormModal/VideoFormModal';
+import { video } from '../../models/video';
+import { getAllVideo } from '../../api-video/api-video';
+import { convertBlob_toUrl } from '../../helpers/fileshelper';
 
 
 interface ContentProps {
@@ -20,15 +23,28 @@ const Content: FC<ContentProps> = () => {
 
   
   const [displayModal, setDisplayMOdal] = useState<boolean>(false)
+  const [videos,setVideos] = useState<video[]>([])
 
+  const runLocalData = async () => {
+    const data :any= await getAllVideo()
+    if(data.isSuccess){
+      data.result.map((d:video)=>{
+        d.poster = convertBlob_toUrl(d.poster as Blob)
+        d.links = convertBlob_toUrl(d.links as Blob)
+        return d
+      })
+      setVideos(data.result)
+    }
+    console.log({data});
+    
+
+
+  }
   useEffect(() => {
     window.scrollTo(0,0)
-    const runLocalData = async () => {
-
-     
-    }
+    
     runLocalData()
-  },)
+  },[])
 
   return (
     <Fragment>
@@ -42,139 +58,25 @@ const Content: FC<ContentProps> = () => {
               Add Film
             </button>
             {displayModal && <VideoFormModal
-            hideModal={()=>setDisplayMOdal(false)}/>}
-
-
-            <div className="contain  overflow-auto m-2 p-2 shadow gap-3 row">
-
-              <div className="col p-0 border">
+            hideModal={()=>setDisplayMOdal(false)}
+            updateData={runLocalData}/>}
+            { videos.length !==0 &&  <div className="contain  overflow-auto m-2 p-2 shadow gap-3 row">
+              {videos.map((vide)=>{
+                return  <div className="col p-0 border" key={vide._id}>
                 <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
+                  <img src={vide.poster as string} alt="" />
                 </div>
 
                 <button className='btn btn-success m-1'>view</button>
                 <button className='btn btn-primary m-1'>edit</button>
                 <button className='btn btn-danger m-1'>Delete</button>
               </div>
-              <div className="col p-0  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
+              })}
 
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col p-0  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col p-0  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col p-0  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-
-              <div className="col  p-0 border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-
-              <div className="col p-0  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col  p-0 border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-
-              <div className="col  p-0 border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col  p-0 border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
-              <div className="col p-0  border">
-                <div className="poster">
-                  <img src="assets/images/film.jpeg" alt="" />
-
-                </div>
-
-                <button className='btn btn-success m-1'>view</button>
-                <button className='btn btn-primary m-1'>edit</button>
-                <button className='btn btn-danger m-1'>Delete</button>
-              </div>
+            </div>}
 
 
-
-
-
-            </div>
+           
           </div>
           <div className="col d-flex align-items-center">
             <div className="description">

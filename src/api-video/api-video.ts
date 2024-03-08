@@ -1,8 +1,8 @@
-import { video } from "../models/video";
+import { Video } from "../models/video";
 import { db } from "./database";
 
 /************************** fonction d'ajout de video ****************** */
-export const addVideo = async (video:video)=>{
+export const addVideo = async (video:Video)=>{
     try {
         await db.addData("videos",video)
         return {
@@ -24,7 +24,7 @@ export const addVideo = async (video:video)=>{
 
 /************************** fonction de mise a jour de video ****************** */
 
-export const updateVideo = async (video:video)=>{
+export const updateVideo = async (video:Video)=>{
     try {
         await db.updateData("videos",video)
         return {

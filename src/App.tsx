@@ -12,10 +12,6 @@ function App() {
       <Header/>
       <Content/>
       
-      
-
-
-     
     </div>
   );
 }

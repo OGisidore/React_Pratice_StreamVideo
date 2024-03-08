@@ -8,32 +8,33 @@ import React, { FC, useEffect, Fragment, useState } from 'react';
 // import Loading from '../Loading/Loading';
 import './VideoFormModal.css';
 import { Modal } from 'react-bootstrap';
-import { video } from '../../models/video';
+import { Video } from '../../models/video';
 import { convertFile_toBlob, convertFile_toLink } from '../../helpers/fileshelper';
 import { addVideo } from '../../api-video/api-video';
 import Loading from '../Loading/Loading';
 
 
 interface VideoFormModalProps {
+  currentVideo?:Video
   hideModal: () => void
   updateData:()=> void
 
 }
 
 
-const VideoFormModal: FC<VideoFormModalProps> = ({ hideModal, updateData }) => {
+const VideoFormModal: FC<VideoFormModalProps> = ({ currentVideo, hideModal, updateData }) => {
 
 /***********   les states   **************/
 /***** state pour previsualiser les videos et images******** */
-const [posterPreview, setProsterPreview] = useState<string>("")
-const [videoPreview, setVideoPreview] = useState<string>("")
+const [posterPreview, setProsterPreview] = useState<string>( currentVideo?.PosterLink as string || "")
+const [videoPreview, setVideoPreview] = useState<string>( currentVideo?.VideoLink as string || "")
 const [formsubmitError, setFormSubmitError] = useState<string>("")
 const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
 
 
 
-  const [formData, setFormData] = useState<video>({
+  const [formData, setFormData] = useState<Video>( currentVideo || {
     title: "",
     description: "",
     poster: null,
@@ -113,11 +114,24 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
     }
     try {
       setIsSubmitted(true)
-      const video : video = formData
-      video.created_at = new Date()
+      const video : Video = formData
+      
+      let result 
+      if (currentVideo) {
+        if (currentVideo.poster !== video.poster) {
+          video.poster = await convertFile_toBlob(video.poster as File)
+          
+        }else{
+          video.poster = currentVideo.poster
+        }
+        video.updated_at = new Date()
+        
+      } else{
+        video.created_at = new Date()
       video.poster = await convertFile_toBlob(video.poster as File)
       video.links = await convertFile_toBlob(video.links as File)
-      const result = await addVideo(video)
+       result = await addVideo(video)
+      }
       if(result.isSuccess){
         setFormData({
           title: "",
@@ -149,11 +163,22 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   useEffect(() => {
     window.scrollTo(0, 0)
     const runLocalData = async () => {
+      setFormData( currentVideo || {
+        title: "",
+        description: "",
+        poster: null,
+        links: null,
+        category: "",
+        isAvailable: true,
+    
+    
+      } )
+      
 
 
     }
     runLocalData()
-  })
+  },[currentVideo])
 
   return (
     <Fragment>
@@ -168,10 +193,10 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
               </Modal.Title>
               <button onClick={hideModal} className='btn btn-close'></button>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className=' body overflow-auto'>
               {isSubmitted ?
               <Loading/> : 
-              <form action="">
+              <form action="" >
               {formsubmitError && <div className="text-danger">
                 {formsubmitError}
               </div>}
@@ -267,7 +292,13 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
             </Modal.Body>
             <Modal.Footer>
               <button onClick={hideModal} className='btn btn-danger'>Cancel</button>
-              <button className='btn btn-success' onClick={handleSubmit}>Save</button>
+              {
+                currentVideo? 
+                <button className='btn btn-warning' onClick={handleSubmit}>Update video</button>
+                :
+                <button className='btn btn-success' onClick={handleSubmit}>Save</button>
+              }
+              
             </Modal.Footer>
 
           </Modal>

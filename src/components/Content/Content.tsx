@@ -9,9 +9,10 @@ import React, { FC, useEffect, Fragment, useState } from 'react';
 import './Content.css';
 import VideoFormModal from '../VideoFormModal/VideoFormModal';
 import { Video } from '../../models/video';
-import { getAllVideo, getVideo } from '../../api-video/api-video';
+import { getAllVideo } from '../../api-video/api-video';
 import { convertBlob_toUrl } from '../../helpers/fileshelper';
 import Views from '../Views/Views';
+import AlertModal from '../AlertModal/AlertModal';
 
 
 interface ContentProps {
@@ -22,7 +23,7 @@ const Content: FC<ContentProps> = ( ) => {
 
   const [displayModal, setDisplayMOdal] = useState<boolean>(false)
   const [videos, setVideos] = useState<Video[]>([])
-  // const [displayModal, setDisplayMOdal] =
+  const [alertModal, setAlertModal] = useState<boolean>(false)
   const [currentVideo, setCurrentVideo] = useState<Video|undefined>()
 
   const [viewVideo, setViewVideo] =  useState<boolean | number>(false)
@@ -40,6 +41,16 @@ const Content: FC<ContentProps> = ( ) => {
     setDisplayMOdal(true)
 
     console.log(video)
+    
+  }
+
+  
+  const handleDelete=(video : Video)=>{
+    setCurrentVideo(video)
+    
+    setAlertModal(true)
+
+    
     
   }
   const handleAdd =()=>{
@@ -90,6 +101,11 @@ const Content: FC<ContentProps> = ( ) => {
               currentVideo={currentVideo}
               updateData={runLocalData} />}
 
+              {alertModal && currentVideo && <AlertModal
+               hideModal={ () =>setAlertModal(false)}
+               currentVideo={currentVideo}
+               updateData={runLocalData}/>}
+
             {videos.length !== 0 && <div className="contain  overflow-auto m-2 p-2 shadow gap-3 row">
               {videos.map((video) => {
                 return <div className="col p-0 border"  key={video._id}>
@@ -98,7 +114,7 @@ const Content: FC<ContentProps> = ( ) => {
                   </div>
                   <button className='btn btn-success m-1' onClick={()=>handleView(video)} >view</button>
                   <button className='btn btn-primary m-1' onClick={()=>handleEdit(video)}  >edit</button>
-                  <button className='btn btn-danger m-1' >Delete</button>
+                  <button className='btn btn-danger m-1'  onClick={()=>handleDelete(video)}>Delete</button>
                 </div>
               })}
 

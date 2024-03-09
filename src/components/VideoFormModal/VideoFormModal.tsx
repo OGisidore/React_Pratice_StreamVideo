@@ -10,7 +10,7 @@ import './VideoFormModal.css';
 import { Modal } from 'react-bootstrap';
 import { Video } from '../../models/video';
 import { convertFile_toBlob, convertFile_toLink } from '../../helpers/fileshelper';
-import { addVideo } from '../../api-video/api-video';
+import { addVideo, updateVideo } from '../../api-video/api-video';
 import Loading from '../Loading/Loading';
 
 
@@ -118,13 +118,19 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
       
       let result 
       if (currentVideo) {
-        if (currentVideo.poster !== video.poster) {
+        if (video.poster instanceof File) {
           video.poster = await convertFile_toBlob(video.poster as File)
           
-        }else{
-          video.poster = currentVideo.poster
         }
+        if (video.links instanceof File) {
+          video.links = await convertFile_toBlob(video.links as File)
+          
+        }
+        delete video?.PosterLink
+        delete video?.VideoLink
         video.updated_at = new Date()
+
+        result = await updateVideo(video)        
         
       } else{
         video.created_at = new Date()
@@ -132,7 +138,7 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
       video.links = await convertFile_toBlob(video.links as File)
        result = await addVideo(video)
       }
-      if(result.isSuccess){
+      if(result?.isSuccess){
         setFormData({
           title: "",
           description: "",

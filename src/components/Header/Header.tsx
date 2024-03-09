@@ -7,6 +7,7 @@
 import React, { FC, useEffect, Fragment, useState } from 'react';
 // import Loading from '../Loading/Loading';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 
 interface HeaderProps {
@@ -31,20 +32,36 @@ const Header: FC<HeaderProps> = () => {
   })
 
   return (
-    
-          <div className="Header">
-            <nav className="navbar">
-              <div className="container-fluid">
-                <a className="navbar-brand title" href='p'>Wetube</a>
-                <form className="d-flex" role="search">
-                  <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                  <button className="btn btn-outline-success" type="submit">Search</button>
-                </form>
-              </div>
-            </nav>
 
+    <div className="Header">
+      <nav className="navbar navbar-expand-lg">
+        <div className="container-fluid">
+          <Link to='/' className="navbar-brand title" >Wetube</Link>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/account">Account</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/account">Home</Link>
+              </li>
+              
+              
+            </ul>
+             <form className="d-flex" role="search">
+            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button className="btn btn-outline-success" type="submit">Search</button>
+          </form>
           </div>
-      
+
+
+         
+        </div>
+      </nav>
+
+    </div>
+
   );
 }
 

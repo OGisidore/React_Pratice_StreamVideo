@@ -13,6 +13,7 @@ import { getAllVideo } from '../../api-video/api-video';
 import { convertBlob_toUrl } from '../../helpers/fileshelper';
 import Views from '../Views/Views';
 import AlertModal from '../AlertModal/AlertModal';
+import Loading from '../Loading/Loading';
 
 
 interface ContentProps {
@@ -23,6 +24,7 @@ const Content: FC<ContentProps> = ( ) => {
 
   const [displayModal, setDisplayMOdal] = useState<boolean>(false)
   const [videos, setVideos] = useState<Video[]>([])
+  const[loading , setLoading] = useState <boolean>(false)
   const [alertModal, setAlertModal] = useState<boolean>(false)
   const [currentVideo, setCurrentVideo] = useState<Video|undefined>()
 
@@ -79,7 +81,7 @@ const Content: FC<ContentProps> = ( ) => {
  
   useEffect(() => {
     window.scrollTo(0, 0)
-   
+   setLoading(true)
     runLocalData()
 
   }, [])
@@ -87,9 +89,9 @@ const Content: FC<ContentProps> = ( ) => {
   return (
     <Fragment>
       {
-        // loading ?
-        // <Loading />
-        // :
+        loading ?
+        <Loading />
+        :
         <div className="Content row">
           <div className="col-6 border">
             <button className='btn btn-success m-4' onClick={handleAdd}>

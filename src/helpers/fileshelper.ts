@@ -1,3 +1,6 @@
+import { rejects } from "assert"
+import { promises } from "dns"
+import { resolve } from "path"
 
 
 export const convertFile_toLink = (file: File): Promise<string> => {
@@ -40,5 +43,27 @@ export const convertFile_toBlob = (file: File): Promise<Blob> => {
 
 export const convertBlob_toUrl = (blob: Blob): string => {
     return URL.createObjectURL(blob)
-
 }
+    
+export const linkToBlob = async (url: string): Promise<Blob> => {
+    return new Promise (async (resolve, reject)=>{
+           try {    const response = await fetch(url)
+        if(!response.ok){
+            reject(`la requete a echoue avec le statut ${response.status}`)
+        }
+
+        const buffer = await response.arrayBuffer();
+        const blob = new Blob([buffer]);
+        resolve(blob) 
+    } catch (error) {
+        reject("erreur lors de la conversion du lien en blob :"+ error)
+       
+        
+    }
+    })
+  
+   
+    
+}
+
+

@@ -7,6 +7,8 @@ import Home from './pages/Home/Home';
 import Account from './pages/Account/Account';
 
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import MediaReader from './pages/MediaReader/MediaReader';
+import NotificationComponent from './components/NotificationComponent/NotificationComponent';
 
 
 function App() {
@@ -17,11 +19,14 @@ function App() {
       <Routes>
         <Route path ='/' element={<Home/>}/>
         <Route path='/account' element={<Account/>}/>
+        <Route path='/reader/:slug' element={<MediaReader/>}/>
         <Route path ='/*' element={<ErrorPage/>}/>
+
 
        
 
       </Routes>
+      <NotificationComponent/>
     </BrowserRouter>
   );
 }

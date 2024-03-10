@@ -10,6 +10,7 @@
   background-color: #d4a373 !important;
   position: sticky !important;
   top: 0 !important;
+  z-index: 100 !important;
 }
 .Header .title{
   color: #fefae0 !important;

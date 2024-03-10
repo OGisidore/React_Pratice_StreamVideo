@@ -4,10 +4,12 @@
   App Name : E-commerce with React.Js
   Created At : 07/03/2024 08:43:37
 */
-import React, { FC, useEffect, Fragment, useState } from 'react';
-// import Loading from '../Loading/Loading';
+import React, { FC, useEffect,  useState } from 'react';
+
 import './Header.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 
 
 interface HeaderProps {
@@ -21,6 +23,11 @@ const Header: FC<HeaderProps> = () => {
   const [state, setState] = useState<any>(null)
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState('');
+
+const  handleAddMotif = ()=>{
+ 
+
+}
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -53,6 +60,7 @@ const Header: FC<HeaderProps> = () => {
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
             <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
+          <button className="btn btn-outline-success" type="submit">Add Modif</button>
           </div>
 
 

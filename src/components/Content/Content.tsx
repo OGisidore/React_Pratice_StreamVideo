@@ -14,6 +14,7 @@ import { convertBlob_toUrl } from '../../helpers/fileshelper';
 import Views from '../Views/Views';
 import AlertModal from '../AlertModal/AlertModal';
 import Loading from '../Loading/Loading';
+import UploadModal from '../UploadModal/UploadModal';
 
 
 interface ContentProps {
@@ -24,43 +25,41 @@ const Content: FC<ContentProps> = ( ) => {
 
   const [displayModal, setDisplayMOdal] = useState<boolean>(false)
   const [videos, setVideos] = useState<Video[]>([])
-  const[loading , setLoading] = useState <boolean>(false)
+  const[loading , setLoading] = useState <boolean>(true)
   const [alertModal, setAlertModal] = useState<boolean>(false)
   const [currentVideo, setCurrentVideo] = useState<Video|undefined>()
-
+  const[uploadModal, setUploadModal] = useState(true)
   const [viewVideo, setViewVideo] =  useState<boolean | number>(false)
-
+// 
   const handleView =(video : Video)=>{
     setCurrentVideo(video)
     setViewVideo(true)
-
-
     console.log(video)
-    
   }
+  // 
   const handleEdit =(video : Video)=>{
     setCurrentVideo(video)
     setDisplayMOdal(true)
-
     console.log(video)
     
   }
-
-  
+  // 
   const handleDelete=(video : Video)=>{
     setCurrentVideo(video)
-    
     setAlertModal(true)
-
-    
-    
   }
+// 
   const handleAdd =()=>{
     setCurrentVideo(undefined)
     setDisplayMOdal(true)
-
-    
   }
+  // 
+  const handleUpload =()=>{
+    setCurrentVideo(undefined)
+   setUploadModal(true)
+     
+  }
+  // 
   const runLocalData = async () => {
     const data: any = await getAllVideo()
     if (data.isSuccess) {
@@ -71,36 +70,42 @@ const Content: FC<ContentProps> = ( ) => {
         return d
       })
       setVideos(data.result)
+      setLoading(false)
+
     }
     console.log({ data });
-
-
-
   }
-
- 
+  // 
   useEffect(() => {
     window.scrollTo(0, 0)
-   setLoading(true)
     runLocalData()
 
   }, [])
-
+// 
   return (
     <Fragment>
       {
         loading ?
         <Loading />
         :
-        <div className="Content row">
-          <div className="col-6 border">
-            <button className='btn btn-success m-4' onClick={handleAdd}>
+        <div className="container">
+          <div className="row">
+             <div className="col-6 border">
+              <div className="d-flex gap-2 justify-content-between">
+                 <button className='btn btn-success m-4' onClick={handleAdd}>
               Add Film
             </button>
-
+            <button className='btn btn-primary m-4' onClick={handleUpload}>
+              Add Many Film
+            </button>
+              </div>
             {displayModal &&  <VideoFormModal
               hideModal={() => setDisplayMOdal(false)}
               currentVideo={currentVideo}
+              updateData={runLocalData} />}
+
+              {uploadModal &&  <UploadModal
+              hideModal={() => setUploadModal(false)}
               updateData={runLocalData} />}
 
               {alertModal && currentVideo && <AlertModal
@@ -108,11 +113,11 @@ const Content: FC<ContentProps> = ( ) => {
                currentVideo={currentVideo}
                updateData={runLocalData}/>}
 
-            {videos.length !== 0 && <div className="contain  overflow-auto m-2 p-2 shadow gap-3 row">
+            {videos.length !== 0 && <div className="contain overflow-auto m-2 p-2 shadow gap-1 row">
               {videos.map((video) => {
-                return <div className="col p-0 border"  key={video._id}>
+                return <div className="col-5 p-0 overflow-hidden border"  key={video._id}>
                   <div className="poster">
-                    <img src={video.PosterLink } alt="" />
+                    <img src={video.PosterLink as string } alt={video.title} />
                   </div>
                   <button className='btn btn-success m-1' onClick={()=>handleView(video)} >view</button>
                   <button className='btn btn-primary m-1' onClick={()=>handleEdit(video)}  >edit</button>
@@ -122,10 +127,10 @@ const Content: FC<ContentProps> = ( ) => {
 
             </div>}
 
-
-
           </div>
           {viewVideo  &&  currentVideo && <Views videoId={currentVideo._id!}/>}
+          </div>
+         
         </div>
       }
     </Fragment>

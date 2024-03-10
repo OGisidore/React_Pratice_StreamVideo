@@ -1,0 +1,123 @@
+export const videos = [
+    {
+        "title": "Voyage au cœur de l'univers",
+        "description": " Explorez les mystères de l'espace infini dans cette fascinante vidéo documentaire. Plongez au cœur des galaxies lointaines, découvrez les étoiles naissantes et assistez à des phénomènes cosmiques étonnants.",
+        "poster": {},
+        "links": {},
+        "category": "Romance",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:47:29.793Z",
+        "_id": 10,
+        "PosterLink": "blob:http://localhost:3000/f7ec2975-2d65-4d75-a34d-76121c39c40f",
+        "VideoLink": "blob:http://localhost:3000/7dbc2af3-34a7-41d0-9b10-45e36d13a9d4"
+    },
+    {
+        "title": "\"Cuisine du monde : Aventure culinaire",
+        "description": "Laissez-vous emporter dans un voyage culinaire autour du monde avec cette vidéo captivante. Découvrez les saveurs exotiques de différentes cultures, des rues animées de Tokyo aux marchés colorés de Marrakech.",
+        "poster": {},
+        "links": {},
+        "category": "Motivation",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:48:26.206Z",
+        "_id": 11,
+        "PosterLink": "blob:http://localhost:3000/1b891231-c23c-445a-bd66-bd4e9a2d59a4",
+        "VideoLink": "blob:http://localhost:3000/ae75a035-2e77-469c-a4fa-a88197d1d49d"
+    },
+    {
+        "title": "Art de la détente : Méditation et bien-être",
+        "description": "Plongez dans un univers de calme et de sérénité avec cette vidéo apaisante de méditation et de relaxation. Laissez les tensions s'évaporer tandis que vous vous détendez et explorez votre paix intérieure.",
+        "poster": {},
+        "links": {},
+        "category": "Education",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:49:24.622Z",
+        "_id": 12,
+        "PosterLink": "blob:http://localhost:3000/ed1bee60-cbc6-428f-a1e3-9dabae900744",
+        "VideoLink": "blob:http://localhost:3000/f45ea060-b640-4caa-8272-9b8796d12652"
+    },
+    {
+        "title": "Aventure sous-marine : Exploration des fonds marins",
+        "description": " Explorez les merveilles cachées des océans avec cette incroyable vidéo d'exploration sous-marine. Plongez dans les profondeurs et découvrez des créatures étonnantes, des récifs colorés et des paysages sous-marins à couper le souffle.",
+        "poster": {},
+        "links": {},
+        "category": "Famille",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:50:37.626Z",
+        "_id": 13,
+        "PosterLink": "blob:http://localhost:3000/b1004ada-0144-4937-89bd-23c20f287d57",
+        "VideoLink": "blob:http://localhost:3000/1337adbe-3e22-40e2-a90e-760da5fd6fce"
+    },
+    {
+        "title": "Histoires de légendes : Mythes et contes du monde",
+        "description": " Voyagez à travers le temps et l'espace avec cette vidéo captivante sur les légendes et les contes du monde entier. Découvrez les histoires fascinantes de dieux et de héros, de monstres mythiques et de quêtes épiques.",
+        "poster": {},
+        "links": {},
+        "category": "Formation",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:51:49.553Z",
+        "_id": 14,
+        "PosterLink": "blob:http://localhost:3000/24815226-56a2-456f-a540-b888abd6e881",
+        "VideoLink": "blob:http://localhost:3000/1bd53481-2a64-4715-914a-f490ccede97e"
+    },
+    {
+        "title": "Exploration urbaine : Les secrets des villes abandonnées",
+        "description": "Plongez dans l'atmosphère mystérieuse des villes abandonnées avec cette vidéo d'exploration urbaine. Découvrez les ruines oubliées, les bâtiments hantés et les histoires cachées derrière ces lieux fascinants",
+        "poster": {},
+        "links": {},
+        "category": "Politique",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:52:56.621Z",
+        "_id": 15,
+        "updated_at": "2024-03-09T10:00:18.154Z",
+        "PosterLink": "blob:http://localhost:3000/7b7b15f5-3567-4be6-8268-0c43dc397c7f",
+        "VideoLink": "blob:http://localhost:3000/521255dc-78cd-44ee-bd99-e5b332db4f9b"
+    },
+    {
+        "title": "Rythmes du monde : Musique et cultures",
+        "description": " Voyagez à travers les continents et découvrez la richesse des cultures musicales du monde entier. De la musique traditionnelle aux rythmes modernes, cette vidéo vous fera vibrer au son de la diversité culturelle",
+        "poster": {},
+        "links": {},
+        "category": "Comedie",
+        "isAvailable": true,
+        "created_at": "2024-03-09T09:53:56.760Z",
+        "_id": 16,
+        "PosterLink": "blob:http://localhost:3000/72383900-189f-41bf-950f-b83343c31e12",
+        "VideoLink": "blob:http://localhost:3000/6361eab7-9605-46ab-9fab-ee6c71faa588"
+    },
+    {
+        "title": " Science en action : Expériences et découvertes",
+        "description": " Plongez dans le monde passionnant de la science avec cette vidéo remplie d'expériences et de découvertes. Explorez les lois de la physique, de la chimie et de la biologie à travers des démonstrations captivantes et des expériences étonnantes.",
+        "poster": {},
+        "links": {},
+        "category": "Motivation",
+        "isAvailable": true,
+        "created_at": "2024-03-09T15:07:50.631Z",
+        "_id": 18,
+        "PosterLink": "blob:http://localhost:3000/f7c75579-6d80-4138-a8d5-9991a839bc44",
+        "VideoLink": "blob:http://localhost:3000/b2511730-159f-4c39-b43a-681c6d9322a6"
+    },
+    {
+        "title": "Art du mouvement : Danse et expression corporelle",
+        "description": "Explorez la beauté et la grâce du mouvement avec cette vidéo inspirante sur la danse et l'expression corporelle. Découvrez les différents styles de danse du monde entier et laissez-vous emporter par la passion et l'émotion des danseurs.",
+        "poster": {},
+        "links": {},
+        "category": "Politique",
+        "isAvailable": true,
+        "created_at": "2024-03-09T15:09:01.981Z",
+        "_id": 19,
+        "PosterLink": "blob:http://localhost:3000/2bc0d6ff-f9bf-44dd-a122-d1029af20473",
+        "VideoLink": "blob:http://localhost:3000/19800153-b429-4ff8-97c9-b439917b7621"
+    },
+    {
+        "title": "Cinéma classique : Chef-d'œuvres du grand écran",
+        "description": ": Plongez dans l'âge d'or du cinéma avec cette collection de chefs-d'œuvre du grand écran. Découvrez des films emblématiques, des performances légendaires et des histoires intemporelles qui ont marqué l'histoire du cinéma.",
+        "poster": {},
+        "links": {},
+        "category": "Famille",
+        "isAvailable": true,
+        "created_at": "2024-03-09T15:10:15.088Z",
+        "_id": 20,
+        "PosterLink": "blob:http://localhost:3000/f809af95-e1ff-4904-8c85-07e23b6d9d0c",
+        "VideoLink": "blob:http://localhost:3000/f5066d99-c976-4434-aa43-9d52d799f85d"
+    }
+]

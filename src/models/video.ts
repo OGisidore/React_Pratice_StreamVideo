@@ -2,6 +2,7 @@
 
 export interface Video {
   _id?:number,
+  slug?: string,
   title: string;
   description: string;
   poster:File|Blob|null|string;

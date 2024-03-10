@@ -1,9 +1,11 @@
+import { slugyfy } from "../helpers/strigHelpers";
 import { Video } from "../models/video";
 import { db } from "./database";
 
 /************************** fonction d'ajout de video ****************** */
 export const addVideo = async (video:Video)=>{
     try {
+        video.slug = slugyfy(video.title)
         await db.addData("videos",video)
         return {
             isSuccess : true,
@@ -114,4 +116,28 @@ export const deleteVideo = async (_id:number)=>{
 }
 
 
+/************************** fonction de recherche d'une video ****************** */
 
+
+
+export const seachVideoBySlug = async (slug:string)=>{
+    try {
+        
+      const videos =   await db.search("videos","slug",slug)
+        return {
+            isSuccess : true,
+            result:videos[0]
+           
+        }
+
+        
+    } catch (error) {
+        console.log({error});
+        return {
+            isSuccess : false,
+            error
+        }
+        
+        
+    }
+}

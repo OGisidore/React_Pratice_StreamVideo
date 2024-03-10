@@ -1,0 +1,17 @@
+/*
+  Authors : Mudey Formation
+  Website : https://mudey.fr/
+  App Name : E-commerce with React.Js
+  Created At : 09/03/2024 15:24:13
+*/
+
+.PlaylistItem:hover .border {
+  background-color: gray;
+  color: floralwhite;
+}
+.PlaylistItem .currentVideo{
+  color: #fff !important;
+  background-color: blue !important;
+
+}
+

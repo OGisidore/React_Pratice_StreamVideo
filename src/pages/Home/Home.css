@@ -6,3 +6,8 @@
 */
 
 .Home {}
+
+.carte img{
+  height: 20rem !important;
+  width: auto !important;
+}

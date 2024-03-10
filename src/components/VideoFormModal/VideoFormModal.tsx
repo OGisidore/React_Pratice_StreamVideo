@@ -12,6 +12,9 @@ import { Video } from '../../models/video';
 import { convertFile_toBlob, convertFile_toLink } from '../../helpers/fileshelper';
 import { addVideo, updateVideo } from '../../api-video/api-video';
 import Loading from '../Loading/Loading';
+import { useDispatch } from 'react-redux';
+import { initNotification } from '../../helpers/notificationHelper';
+import { ADD } from '../../Reduce/types/action';
 
 
 interface VideoFormModalProps {
@@ -31,7 +34,7 @@ const [videoPreview, setVideoPreview] = useState<string>( currentVideo?.VideoLin
 const [formsubmitError, setFormSubmitError] = useState<string>("")
 const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
-
+const dispatch = useDispatch()
 
 
   const [formData, setFormData] = useState<Video>( currentVideo || {
@@ -151,12 +154,17 @@ const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
         })
         updateData()
         hideModal()
+        if (currentVideo) {
+          initNotification(dispatch, ADD,"video updated sucessfully !")
+        }
+        initNotification(dispatch, ADD,"video added sucessfully !")
       }
   
       console.log({result});
       
     } catch (error) {
       setFormSubmitError("Error , please again later !")
+      initNotification(dispatch, ADD,"Error , please again later !","danger")
 
       
     }

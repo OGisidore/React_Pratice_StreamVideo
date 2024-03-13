@@ -4,11 +4,10 @@
   App Name : E-commerce with React.Js
   Created At : 07/03/2024 08:43:37
 */
-import React, { FC, useEffect,  useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import './Header.css';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 
@@ -18,22 +17,28 @@ interface HeaderProps {
 
 
 const Header: FC<HeaderProps> = () => {
+  const navigate = useNavigate()
+  const currentSearchParams = new URLSearchParams(window.location.search)
+  const searchQuerry = currentSearchParams.get("search") || ''
+    const [searchInput, setSearchInput] = useState<string>(searchQuerry)
 
 
-  const [state, setState] = useState<any>(null)
-  const [loading, setLoading] = useState(true);
-  const [value, setValue] = useState('');
 
-const  handleAddMotif = ()=>{
- 
+
+const handleSearch = (event:any) =>{
+  event.preventDefault()
+  const currentSearchParams = new URLSearchParams(window.location.search)
+  currentSearchParams.set("search", searchInput)
+  navigate({
+    search:currentSearchParams.toString()
+  })
 
 }
-
   useEffect(() => {
     window.scrollTo(0, 0)
     const runLocalData = async () => {
 
-      setLoading(false)
+      // setLoading(false)
     }
     runLocalData()
   })
@@ -56,11 +61,21 @@ const  handleAddMotif = ()=>{
               
               
             </ul>
-             <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+             <form
+             onSubmit={handleSearch}
+              className="d-flex"
+               role="search">
+            <input
+            onChange={(e)=>setSearchInput(e.target.value)}
+             className="form-control me-2"
+             type="search"
+             defaultValue={searchInput}
+             placeholder="Search"
+             aria-label="Search"
+             />
             <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
-          <button className="btn btn-outline-success" type="submit">Add Modif</button>
+          <button className="btn btn-outline-success" type="submit">Add nodif</button>
           </div>
 
 

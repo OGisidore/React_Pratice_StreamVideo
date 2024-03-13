@@ -8,11 +8,13 @@ import React, { FC, useEffect, Fragment, useState } from 'react';
 // import Loading from '../Loading/Loading';
 import './Home.css';
 import Loading from '../../components/Loading/Loading';
-import Content from '../../components/Content/Content';
-import { getAllVideo } from '../../api-video/api-video';
+
+
 import { Video } from '../../models/video';
-import { convertBlob_toUrl } from '../../helpers/fileshelper';
+
 import VideoCard from '../../components/VideoCard/VideoCard';
+
+import SearchBox from '../../components/SearchBox/SearchBox';
 
 
 interface HomeProps {
@@ -26,29 +28,17 @@ const Home: FC<HomeProps> = () => {
   // const [state, setState] = useState<any>(null)
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<Video[]>([])
-  const runLocalData = async () => {
-    const data: any = await getAllVideo()
-    if (data.isSuccess) {
-      data.result.map((d: Video) => {
-
-        d.PosterLink = convertBlob_toUrl(d.poster as Blob)
-        d.VideoLink = convertBlob_toUrl(d.links as Blob)
-        return d
-      })
-      setVideos(data.result)
-      setLoading(false)
-
-    }
-   
+ 
+  
 
 
 
-  }
+  
 
   useEffect(() => {
     window.scrollTo(0, 0)
-
-    runLocalData()
+setLoading(false)
+    
   }, [])
 
   return (
@@ -59,6 +49,8 @@ const Home: FC<HomeProps> = () => {
           <Loading />
           :
           <div className="Home container py-2">
+           <SearchBox 
+           handleChange={setVideos}/>
             <div className="row ">
               {
                 videos.map((video: Video) => (

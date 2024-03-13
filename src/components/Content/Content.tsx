@@ -15,6 +15,8 @@ import Views from '../Views/Views';
 import AlertModal from '../AlertModal/AlertModal';
 import Loading from '../Loading/Loading';
 import UploadModal from '../UploadModal/UploadModal';
+import { useLocation } from 'react-router-dom';
+import SearchBox from '../SearchBox/SearchBox';
 
 
 interface ContentProps {
@@ -30,6 +32,11 @@ const Content: FC<ContentProps> = ( ) => {
   const [currentVideo, setCurrentVideo] = useState<Video|undefined>()
   const[uploadModal, setUploadModal] = useState(true)
   const [viewVideo, setViewVideo] =  useState<boolean | number>(false)
+
+
+  // const currentSearchParams = new URLSearchParams(window.location.search)
+  // const searchQuerry = currentSearchParams.get("search") || ''
+  // const location = useLocation()
 // 
   const handleView =(video : Video)=>{
     setCurrentVideo(video)
@@ -59,6 +66,11 @@ const Content: FC<ContentProps> = ( ) => {
    setUploadModal(true)
      
   }
+  // const runLocalData =()=>{
+  //   setCurrentVideo(undefined)
+  //  setUploadModal(true)
+     
+  // }
   // 
   const runLocalData = async () => {
     const data: any = await getAllVideo()
@@ -70,16 +82,14 @@ const Content: FC<ContentProps> = ( ) => {
         return d
       })
       setVideos(data.result)
-      setLoading(false)
-
+      
     }
     console.log({ data });
   }
-  // 
+  
   useEffect(() => {
     window.scrollTo(0, 0)
-    runLocalData()
-
+    setLoading(false)
   }, [])
 // 
   return (
@@ -89,7 +99,10 @@ const Content: FC<ContentProps> = ( ) => {
         <Loading />
         :
         <div className="container">
+         
           <div className="row">
+          <SearchBox
+          handleChange={setVideos}/>
              <div className="col-6 border">
               <div className="d-flex gap-2 justify-content-between">
                  <button className='btn btn-success m-4' onClick={handleAdd}>

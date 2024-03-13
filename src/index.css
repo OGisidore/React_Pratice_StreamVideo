@@ -20,6 +20,9 @@ html::-webkit-scrollbar-thumb{
 }
 
 a{
-  color: inherit !important;
+  /* color: inherit !important; */
   text-decoration: none !important;
 }
+/* .active{
+  background-color: blue;
+} */

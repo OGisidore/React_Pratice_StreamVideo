@@ -12,6 +12,9 @@ import { Video } from '../../models/video';
 import { convertFile_toBlob, linkToBlob } from '../../helpers/fileshelper';
 import Loading from '../Loading/Loading';
 import { addVideo } from '../../api-video/api-video';
+import { useDispatch } from 'react-redux';
+import { ADD } from '../../Reduce/types/action';
+import { initNotification } from '../../helpers/notificationHelper';
 
 
 interface UploadModalProps {
@@ -23,13 +26,13 @@ interface UploadModalProps {
 
 const UploadModal : FC<UploadModalProps> = ({hideModal,updateData}) =>{
   const [isLoading , setIsLoading] = useState<boolean>(false)
-
+const dispatch = useDispatch()
 const handleFileDrop = async (files : File[])=>{
   setIsLoading(true)
   try {
     await Promise.all( files.map( async (file)=>{
     const filesNameParts = file.name.split('.')
-    const extension = filesNameParts.pop()
+    // const extension = filesNameParts.pop()
     const title = filesNameParts.join(' ')
     const videoBlob = await convertFile_toBlob(file)
     const imageLink = window.origin + "/assets/images/film.jpeg"
@@ -51,8 +54,10 @@ const handleFileDrop = async (files : File[])=>{
   }))
   updateData()
   hideModal()
+  initNotification(dispatch, ADD,"all videos added sucessfully !")
   } catch (error) {
     console.error("une erreur s'est produit lors du traitement des fichiers : ", error)
+    initNotification(dispatch, ADD,"Error , please again later !","danger")
     
   }
  

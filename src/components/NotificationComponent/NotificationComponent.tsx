@@ -54,7 +54,7 @@ const NotificationComponent: FC<NotificationComponentProps> = () => {
     <div className="NotificationComponent">
       {
         notifications.map((notification:Notification ) => (
-          <div className={`alert alert-${notification.status} alert-dismissible fade show`} role="alert">
+          <div className={`alert alert-${notification.status} alert-dismissible fade show`} key={notification._id} role="alert">
            {notification.message}
             <button type="button" onClick={()=>handleDeleteNotification(notification)} className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>

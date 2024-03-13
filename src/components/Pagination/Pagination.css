@@ -2,11 +2,7 @@
   Authors : Mudey Formation
   Website : https://mudey.fr/
   App Name : E-commerce with React.Js
-  Created At : 09/03/2024 14:46:55
+  Created At : 13/03/2024 09:53:15
 */
 
-.MediaReader {}
-.playslist{
-  max-height: 90vh;
-  overflow: auto;
-}
+.Pagination {}

@@ -15,7 +15,6 @@ import Views from '../Views/Views';
 import AlertModal from '../AlertModal/AlertModal';
 import Loading from '../Loading/Loading';
 import UploadModal from '../UploadModal/UploadModal';
-import { useLocation } from 'react-router-dom';
 import SearchBox from '../SearchBox/SearchBox';
 
 

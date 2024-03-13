@@ -89,7 +89,7 @@ const MediaReader : FC<MediaReaderProps> = () =>{
             </div>
            
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 playslist">
             <Playlist 
             videoId={video._id!}/>
           </div>

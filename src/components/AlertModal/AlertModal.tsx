@@ -10,6 +10,8 @@ import { Modal } from 'react-bootstrap';
 
 import { deleteVideo } from '../../api-video/api-video';
 import { Video } from '../../models/video';
+import { initNotification } from '../../helpers/notificationHelper';
+import { ADD } from '../../Reduce/types/action';
 
 
 interface AlertModalProps {
@@ -28,6 +30,7 @@ const AlertModal : FC<AlertModalProps> = ({hideModal, updateData , currentVideo}
     await deleteVideo(currentVideo?._id!)
     hideModal()
     updateData()
+    initNotification(dispatch, ADD,"Error , please again later !","danger")
     
       }
  

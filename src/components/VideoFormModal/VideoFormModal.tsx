@@ -156,8 +156,10 @@ const dispatch = useDispatch()
         hideModal()
         if (currentVideo) {
           initNotification(dispatch, ADD,"video updated sucessfully !")
+        }else{
+          initNotification(dispatch, ADD,"video added sucessfully !")
         }
-        initNotification(dispatch, ADD,"video added sucessfully !")
+        
       }
   
       console.log({result});

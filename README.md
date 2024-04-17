@@ -23,7 +23,7 @@ Bienvenue dans le projet d'application web de streaming vidéo ! Cette applicati
 
 ## Installation et Configuration
 
-1. **Clonez le Répertoire:** `git clone https://github.com/votre-utilisateur/streaming-video-app.git`
+1. **Clonez le Répertoire:** `git clone https://github.com/OGisidore/React_Pratice_StreamVideo.git`
 2. **Installez les Dépendances:** `npm install`
 3. **Lancez l'Application:** `npm start`
 
